@@ -1,0 +1,14 @@
+.git
+.github
+.dart_tool
+.idea
+.vscode
+build/
+android/
+ios/
+linux/
+macos/
+windows/
+test/
+*.md
+.metadata

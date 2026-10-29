@@ -154,7 +154,35 @@ EcoSteps includes a configured CI/CD workflow (`.github/workflows/flutter_ci.yml
 
 ---
 
-## 6. Known Platform Limitations & Troubleshooting
+## 6. Render Deployment (Cloud)
+
+EcoSteps is pre-configured for automated deployment on [Render](https://render.com).
+
+### Method A: Static Site Deployment (Recommended & Free)
+1. Go to your [Render Dashboard](https://dashboard.render.com/) and click **New + > Static Site**.
+2. Connect your Git repository (`PrivacyPreservingchatbot`).
+3. Fill in the following build & publish settings:
+   - **Name**: `ecosteps-guide` (or your choice)
+   - **Branch**: `main`
+   - **Build Command**: `chmod +x render-build.sh && ./render-build.sh`
+   - **Publish Directory**: `build/web`
+4. Under **Redirects/Rewrites**, ensure SPA fallback routing is configured:
+   - **Type**: `Rewrite`
+   - **Source**: `/*`
+   - **Destination**: `/index.html`
+5. Click **Create Static Site**. Render will automatically run the build script, download Flutter, compile the web release, and serve it via global CDN.
+
+> **Blueprint Alternative:** Render will also auto-detect [render.yaml](file:///c:/Users/navne/Downloads/FLUTTER_PROJECT/render.yaml). You can simply choose **New + > Blueprint** and select your repository for 1-click provisioning with headers and SPA rewrite rules pre-configured.
+
+### Method B: Docker Web Service Deployment
+1. Click **New + > Web Service** on Render.
+2. Select your repository.
+3. Choose **Docker** as the runtime (Render will automatically detect the root [Dockerfile](file:///c:/Users/navne/Downloads/FLUTTER_PROJECT/Dockerfile) and [nginx.conf](file:///c:/Users/navne/Downloads/FLUTTER_PROJECT/nginx.conf)).
+4. Choose the free/starter tier and click **Create Web Service**.
+
+---
+
+## 7. Known Platform Limitations & Troubleshooting
 
 1. **Windows ARM64 Platform Toolchain**:
    - Building native C++ Windows desktop executables (`flutter build windows`) on Windows 11 ARM64 requires the Visual Studio ARM64 C++ build tools installed via the Visual Studio Installer.
